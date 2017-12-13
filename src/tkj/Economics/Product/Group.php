@@ -48,9 +48,9 @@ class Group {
     public function getArrayFromHandles($handles)
     {
         return $this->client
-            ->Product_GetDataArray(array('entityHandles'=>array('ProductGroupHandle'=>$handles)))
-            ->Product_GetDataArrayResult
-            ->ProductData;
+            ->ProductGroup_GetDataArray(array('entityHandles'=>array('ProductGroupHandle'=>$handles)))
+            ->ProductGroup_GetDataArrayResult
+            ->ProductGroupData;
     }
 
     /**

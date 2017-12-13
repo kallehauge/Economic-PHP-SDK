@@ -218,4 +218,24 @@ class Invoice {
         return $number;
     }
 
+    /**
+     * Book a current Invoice
+     * @param  mixed $invoiceNumber
+     * @param  bool $mobilepay
+     * @return object
+     */
+    public function bookAndSendElectronicInvoice($invoiceNumber, $mobilepay = FALSE)
+    {
+        $handle = $this->getHandle($invoiceNumber);
+
+        $number = $this->client
+            ->CurrentInvoice_BookAndSendElectronicInvoice(array(
+            	'currentInvoiceHandle'=>$handle,
+	            'mobilePay' => $mobilepay,
+            ))
+            ->CurrentInvoice_BookAndSendElectronicInvoiceResult;
+
+        return $number;
+    }
+
 }

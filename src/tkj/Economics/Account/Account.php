@@ -26,6 +26,34 @@ class Account {
         $this->client_raw = $client;
     }
 
+	/**
+	 * Get specific Account by number
+	 * @param  integer $no
+	 * @return object
+	 */
+	public function get($no)
+	{
+		$handle = $this->getHandle($no);
+
+		return $this->getArrayFromHandles($handle);
+	}
+
+
+	/**
+	 * Get all Accounts
+	 *
+	 * @return object[]
+	 */
+	public function getAll()
+	{
+		$handles = $this->client
+			->Account_GetAll()
+			->Account_GetAllResult
+			->AccountHandle;
+
+		return $this->getArrayFromHandles($handles);
+	}
+
     /**
      * Get Debtor Group handle by number
      * @param  integer $no
