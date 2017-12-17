@@ -255,6 +255,23 @@ class Invoice {
     }
 
     /**
+     * Set whether the current invoice has VAT included
+     * @param object $currentInvoiceHandle
+     * @param boolean $value
+     * @return float
+     */
+    public function setIsVatIncluded($currentInvoiceHandle, $value)
+    {
+        $number = $this->client
+            ->CurrentInvoice_SetIsVatIncluded(array(
+            	'currentInvoiceHandle'=>$currentInvoiceHandle,
+            	'value'=>$value,
+            ));
+
+        return $number;
+    }
+
+    /**
      * Set currency
      * @param object $currentInvoiceHandle
      * @param object $valueHandle
