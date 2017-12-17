@@ -238,4 +238,50 @@ class Invoice {
         return $number;
     }
 
+    /**
+     * Return total Gross amount
+     * @param  object $currentInvoiceHandle
+     * @return float
+     */
+    public function getGrossAmount($currentInvoiceHandle)
+    {
+        $number = $this->client
+            ->CurrentInvoice_GetGrossAmount(array(
+            	'currentInvoiceHandle'=>$currentInvoiceHandle,
+            ))
+            ->CurrentInvoice_GetGrossAmountResult;
+
+        return $number;
+    }
+
+    /**
+     * Set currency
+     * @param object $currentInvoiceHandle
+     * @param object $valueHandle
+     * @return mixed
+     */
+    public function setCurrency($currentInvoiceHandle, $valueHandle)
+    {
+        return $this->client
+	        ->CurrentInvoice_SetCurrency(array(
+		        'currentInvoiceHandle'=>$currentInvoiceHandle,
+		        'valueHandle'=>$valueHandle,
+	        ));
+    }
+
+    /**
+     * Set exchange rate
+     * @param object $currentInvoiceHandle
+     * @param float $exchange_rate
+     * @return mixed
+     */
+    public function setExchangeRate($currentInvoiceHandle, $exchange_rate)
+    {
+        return $this->client
+	        ->CurrentInvoice_SetExchangeRate(array(
+		        'currentInvoiceHandle'=>$currentInvoiceHandle,
+		        'value'=> (float) $exchange_rate,
+	        ));
+    }
+
 }
