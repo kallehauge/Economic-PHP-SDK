@@ -281,8 +281,13 @@ class Debtor {
     {
         $handles = $this->client
             ->Debtor_FindByEmail(array('email'=>$value))
-            ->Debtor_FindByEmailResult
-            ->DebtorHandle;
+            ->Debtor_FindByEmailResult;
+
+        if ( ! property_exists( $handles, 'DebtorHandle' ) ) {
+        	return [];
+        }
+
+        $handles = $handles->DebtorHandle;
 
         if ( count($handles) > 1 )
             return $this->getArrayFromHandles($handles);
@@ -403,6 +408,11 @@ class Debtor {
                     $this->client
                         ->Debtor_SetCINumber($request);
                     break;
+                case 'telephone':
+                    $this->client
+                        ->Debtor_SetTelephoneAndFaxNumber($request);
+                    break;
+                    break;
                 case 'group':
                     $group = new Group($this->client_raw);
                     $groupHandle = $group->getHandle($value);
@@ -462,7 +472,7 @@ class Debtor {
                 array('debtorHandle' => $handle, 'value' => true)
             );
 
-        return $this->update($number, $data);
+        return $handle;
     }
 
 
@@ -545,5 +555,27 @@ class Debtor {
 
         return $number;
     }
+
+
+	/**
+	 * Sets the term of payment of a debtor. The value may not be omitted
+	 *
+	 * @param object $debtorHandle
+	 * @param object $valueHandle
+	 *
+	 * @return float
+	 */
+	public function setTermOfPayment($debtorHandle, $valueHandle)
+	{
+		if ( is_numeric( $debtorHandle ) ) {
+			$debtorHandle = $this->getHandle( $debtorHandle );
+		}
+
+		return $this->client
+			->Debtor_SetTermOfPayment(array(
+				'debtorHandle' => $debtorHandle,
+				'valueHandle' => $valueHandle,
+			));
+	}
 
 }
