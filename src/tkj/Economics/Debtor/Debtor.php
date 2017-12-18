@@ -556,7 +556,6 @@ class Debtor {
         return $number;
     }
 
-
 	/**
 	 * Sets the term of payment of a debtor. The value may not be omitted
 	 *
@@ -575,6 +574,27 @@ class Debtor {
 			->Debtor_SetTermOfPayment(array(
 				'debtorHandle' => $debtorHandle,
 				'valueHandle' => $valueHandle,
+			));
+	}
+
+	/**
+	 * Sets extended VAT zone of a debtor
+	 *
+	 * @param object $debtorHandle
+	 * @param object $numberHandle
+	 *
+	 * @return float
+	 */
+	public function setExtendedVatZone($debtorHandle, $numberHandle)
+	{
+		if ( is_numeric( $debtorHandle ) ) {
+			$debtorHandle = $this->getHandle( $debtorHandle );
+		}
+
+		return $this->client
+			->Debtor_SetExtendedVatZone(array(
+				'debtorHandle' => $debtorHandle,
+				'value' => $numberHandle,
 			));
 	}
 
