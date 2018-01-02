@@ -287,6 +287,28 @@ class Invoice {
     }
 
     /**
+     * Set layout
+     * @param object $currentInvoiceHandle
+     * @param int|object $value
+     * @return mixed
+     */
+    public function setLayout($currentInvoiceHandle, $value)
+    {
+        if ( is_numeric( $value ) ) {
+            $valueHandle = new \stdClass();
+            $valueHandle->Id = $value;
+        } else {
+            $valueHandle = $value;
+        }
+
+        return $this->client
+            ->CurrentInvoice_SetLayout(array(
+                'currentInvoiceHandle'=>$currentInvoiceHandle,
+                'valueHandle'=>$valueHandle,
+            ));
+    }
+
+    /**
      * Set exchange rate
      * @param object $currentInvoiceHandle
      * @param float $exchange_rate
