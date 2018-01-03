@@ -171,6 +171,29 @@ class CashBookEntry {
 	}
 
 	/**
+	 * Set department
+	 *
+	 * @param object $cashBookEntryHandle
+	 * @param object $valueHandle
+	 *
+	 * @return mixed
+	 */
+	public function setDepartment($cashBookEntryHandle, $valueHandle)
+	{
+		if ( is_numeric( $valueHandle ) ) {
+			$value = $valueHandle;
+			$valueHandle = new \stdClass();
+			$valueHandle->Number = $value;
+		}
+
+		return $this->client
+			->CashBookEntry_SetDepartment(array(
+				'cashBookEntryHandle' => $cashBookEntryHandle,
+				'valueHandle' => $valueHandle,
+			));
+	}
+
+	/**
 	 * Get cashbooks from handles
 	 *
 	 * @param object $handles
