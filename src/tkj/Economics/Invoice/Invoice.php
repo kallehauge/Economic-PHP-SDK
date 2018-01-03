@@ -323,4 +323,26 @@ class Invoice {
 	        ));
     }
 
+    /**
+     * Set attention
+     * @param object $currentInvoiceHandle
+     * @param float $value
+     * @return mixed
+     */
+    public function setAttention($currentInvoiceHandle, $value)
+    {
+        if ( is_numeric( $value ) ) {
+            $valueHandle = new \stdClass();
+            $valueHandle->Id = $value;
+        } else {
+            $valueHandle = $value;
+        }
+
+        return $this->client
+            ->CurrentInvoice_SetAttention(array(
+                'currentInvoiceHandle'=>$currentInvoiceHandle,
+                'valueHandle'=>$valueHandle,
+            ));
+    }
+
 }
