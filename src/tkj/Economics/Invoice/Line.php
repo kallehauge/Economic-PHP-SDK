@@ -266,4 +266,30 @@ class Line {
         return true;
     }
 
+    /**
+     * Set Current Invoice Line Department
+     * @param  mixed $invoiceLineHandle
+     * @param  integer $department
+     * @return boolean
+     */
+    public function department($invoiceLineHandle, $department)
+    {
+        if ( is_numeric( $department ) ) {
+            $valueHandle = new \stdClass();
+            $valueHandle->Number = $department;
+        } else {
+            $valueHandle = $department;
+        }
+
+        $this->client
+            ->CurrentInvoiceLine_SetDepartment(
+                array(
+                    'currentInvoiceLineHandle' => $invoiceLineHandle,
+                    'valueHandle'              => $valueHandle,
+                )
+            );
+
+        return true;
+    }
+
 }
