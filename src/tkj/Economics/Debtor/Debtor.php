@@ -307,16 +307,24 @@ class Debtor {
     {
         $handles = $this->client
             ->Debtor_FindByName(array('name'=>$value))
-            ->Debtor_FindByNameResult
-            ->DebtorHandle;
+            ->Debtor_FindByNameResult;
 
-        if ( count($handles) > 1 )
+        if ( ! property_exists( $handles, 'DebtorHandle' ) ) {
+            return array();
+        }
+
+        $handles = $handles->DebtorHandle;
+
+        if ( count($handles) > 1 ) {
             return $this->getArrayFromHandles($handles);
+        }
 
-    $result = $this->getDataFromHandle($handles);
-    if ( empty($result) )
-        return array();
-    return array($result);
+        $result = $this->getDataFromHandle($handles);
+        if ( empty($result) ) {
+            return array();
+        }
+
+        return array($result);
     }
 
     /**
