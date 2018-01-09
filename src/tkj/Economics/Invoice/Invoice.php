@@ -345,4 +345,19 @@ class Invoice {
             ));
     }
 
+    /**
+     * Set heading
+     * @param object $currentInvoiceHandle
+     * @param string $value
+     * @return mixed
+     */
+    public function setHeading($currentInvoiceHandle, $value)
+    {
+        return $this->client
+            ->CurrentInvoice_SetHeading(array(
+                'currentInvoiceHandle'=>$currentInvoiceHandle,
+                'value'=>$value,
+            ));
+    }
+
 }
