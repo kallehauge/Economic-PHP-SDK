@@ -60,4 +60,23 @@ class Department {
 			->DepartmentData;
 	}
 
+	/**
+	 * Check if department is accessible.
+	 *
+	 * @param int|object $departmentHandle
+	 *
+	 * @return mixed
+	 */
+	public function isAccessible($departmentHandle)
+	{
+		if ( is_numeric( $departmentHandle ) ) {
+			$value = $departmentHandle;
+			$departmentHandle = new \stdClass();
+			$departmentHandle->Number = $value;
+		}
+
+		return $this->client
+			->Department_GetIsAccessible(array('departmentHandle' => $departmentHandle))->Department_GetIsAccessibleResult;
+	}
+
 }
